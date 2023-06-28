@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Club } from './club.entity';
 
 @Entity('player')
 export class Player {
@@ -10,4 +11,10 @@ export class Player {
 	playerName: string;
 	@Column({ type: 'smallint' })
 	playerNumber: number;
+
+	@ManyToOne(() => Club, (data) => data.players, {
+		onDelete: 'CASCADE',
+		orphanedRowAction: 'delete',
+	})
+	club: Club;
 }
